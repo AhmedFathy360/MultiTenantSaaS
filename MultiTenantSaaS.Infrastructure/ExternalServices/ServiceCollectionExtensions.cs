@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MultiTenantSaaS.Application.Services;
 using MultiTenantSaaS.Domain.Interfaces;
 using MultiTenantSaaS.Infrastructure.Data;
 using MultiTenantSaaS.Infrastructure.Repositories;
@@ -23,6 +24,10 @@ namespace MultiTenantSaaS.Infrastructure.ExternalServices
 
             // Register EF-based repository
             services.AddScoped<ITenantRepository, TenantRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            // Register Email Service
+            services.AddScoped<IEmailService, SendGridEmailService>();
 
             return services;
         }

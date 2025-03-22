@@ -16,13 +16,13 @@ namespace MultiTenantSaaS.Application.Queries.GetTenantById
         {
             _tenantRepository = tenantRepository;
         }
-        public Task<TenantDto?> Handle(GetTenantByIdQuery request, CancellationToken cancellationToken)
+        public async Task<TenantDto?> Handle(GetTenantByIdQuery request, CancellationToken cancellationToken)
         {
-            var tenant = _tenantRepository.GetbyIdAync(request.TenantId);
+            var tenant = await _tenantRepository.GetbyIdAync(request.TenantId);
 
             if (tenant == null)
             {
-                return Task.FromResult<TenantDto?>(null);
+                return null;
             }
 
             // Map domain entity to DTO
@@ -32,7 +32,7 @@ namespace MultiTenantSaaS.Application.Queries.GetTenantById
                 Name = tenant.Name
             };
 
-            return Task.FromResult<TenantDto?>(dto);
+            return dto;
         }
     }
 }

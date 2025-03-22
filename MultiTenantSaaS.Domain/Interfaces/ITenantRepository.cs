@@ -10,6 +10,10 @@ namespace MultiTenantSaaS.Domain.Interfaces
     public interface ITenantRepository
     {
         Task AddAsync(Tenant tenant);
-        Tenant? GetbyIdAync(Guid tenantId);
+        Task<Tenant?> GetbyIdAync(Guid tenantId);
+        Task<IEnumerable<Tenant>> GetAllAsync(int page = 1, int pageSize = 10);
+        Task UpdateAsync(Tenant tenant);
+        Task DeleteAsync(Guid tenantId);
+        Task<int> GetTotalCountAsync();
     }
 }
